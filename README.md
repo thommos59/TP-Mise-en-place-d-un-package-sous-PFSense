@@ -49,13 +49,15 @@ Le WAN obtient son IP dynamique `192.168.20.176/24` fournie par le routeur de la
 
 L'interface LAN reçoit l'IP fixe `192.168.10.254/24` sans serveur DHCP.   L'interface OPT1 reçoit l'IP fixe `192.168.30.254/24` sans serveur DHCP.
 
-![image.png](image%201.png)
+<img width="817" height="100" alt="image 1" src="https://github.com/user-attachments/assets/1544dc9b-2b62-43a7-8b91-e2c465fe635b" />
+
 
 Initialisation du poste d'administration & Interface WebGUI:
 
 Connectez la machine cliente sur le réseau Proxmox **`vmbr40`**
 
-![image.png](image%202.png)
+<img width="383" height="41" alt="image 2" src="https://github.com/user-attachments/assets/e0927c4c-f021-495c-84c5-fcf4877db64e" />
+
 
 Configurez manuellement sa carte réseau :
 
@@ -67,11 +69,13 @@ Configurez manuellement sa carte réseau :
 
 **DNS** :  l'adresse IP de pfSense (`192.168.10.254`)
 
-![image.png](image%203.png)
+<img width="423" height="120" alt="image 3" src="https://github.com/user-attachments/assets/4d9b4995-f4a4-462b-9afb-d9c9d86e4d6b" />
+
 
 Testez la connectivité vers la passerelle :
 
-![image.png](image%204.png)
+<img width="792" height="362" alt="image 4" src="https://github.com/user-attachments/assets/cabf59c1-7e92-4506-8156-3c22138563a4" />
+
 
 Ouvrez le navigateur Web à l'adresse : `[https://192.168.10.254](https://192.168.10.254)`
 
@@ -81,7 +85,8 @@ Identifiants d'origine : Utilisateur `admin`, mot de passe `pfsense`.
 
 Suivez l'assistant de démarrage (Wizard) pour redéfinir un mot de passe sécurisé.
 
-![image.png](image%205.png)
+<img width="1605" height="877" alt="image 5" src="https://github.com/user-attachments/assets/5c69d1f9-4e96-4c1e-92c0-4586c23b82a5" />
+
 
 **Configuration générale et résolution de noms (Wizard)** :   
 • **Nom de la machine (Hostname)** : `pfsense` (ou `fw-vikor`)   
@@ -99,9 +104,11 @@ Action à réaliser sur pfSense:
 • Changez le champ **Description** : remplacez `OPT1` par **`DMZ`**.   
 • Cliquez sur **Save**, puis sur **Apply Changes**.
 
-![image.png](image%206.png)
+<img width="335" height="307" alt="image 6" src="https://github.com/user-attachments/assets/b4597152-a778-4db0-b99f-44623743d276" />
 
-![image.png](image%207.png)
+
+<img width="910" height="263" alt="image 7" src="https://github.com/user-attachments/assets/f709a7a1-cfa8-4813-8f80-2e9d0a241ef5" />
+
 
 **Autoriser le trafic privé sur le WAN (Critique en TP)** :
 
@@ -111,15 +118,18 @@ Descendez tout en bas de la page dans la section *Reserved Networks*.
 (Explication technique pour l'astreinte : cette règle RFC 1918 bloque par défaut les flux entrants issus de réseaux privés. Le WAN étant simulé sur la plage `192.168.20.0/24`, son maintien bloquerait toutes les connexions venant de l'extérieur).   
 Cliquez sur **Save**, puis sur **Apply Changes**.
 
-![image.png](image%208.png)
+<img width="1438" height="173" alt="image 8" src="https://github.com/user-attachments/assets/01ad0be2-4962-442f-9cd2-e2ed66574a87" />
 
-![image.png](image%209.png)
+
+<img width="517" height="67" alt="image 9" src="https://github.com/user-attachments/assets/d9d03864-bd31-4a37-bd32-87cf0edbe7df" />
+
 
 Déploiement et intégration du serveur Web DMZ:
 
 Je prend un serveur Lamp sur proxmox que je configure:
 
-![image.png](image%2010.png)
+<img width="748" height="366" alt="image 10" src="https://github.com/user-attachments/assets/a2128dbd-e0b1-4133-9d51-76ec75f42603" />
+
 
 Rendre le site accessible depuis Internet (Accès WAN -> Serveur DMZ)
 
@@ -134,7 +144,8 @@ Allez dans **Firewall** > **NAT** > onglet **Port Forward**.Cliquez sur **Add** 
 • **Description** : `Redirection Web Vikor DMZ`
  .Cliquez sur **Save** puis **Apply Changes**.
 
-![image.png](image%2011.png)
+<img width="1462" height="357" alt="image 11" src="https://github.com/user-attachments/assets/2bc9b2a4-0c76-4f6e-b7c4-50f521d72ee8" />
+
 
 Rendre le site accessible depuis le réseau interne (Accès LAN -> Serveur DMZ)
 
@@ -149,7 +160,8 @@ Rendre le site accessible depuis le réseau interne (Accès LAN -> Serveur DMZ)
     - **Destination** : `Single host or alias` -> `192.168.30.10`
     - **Destination Port Range** : `HTTP (80)`
     
-    ![image.png](image%2012.png)
+ <img width="1437" height="453" alt="image 12" src="https://github.com/user-attachments/assets/a3aa8924-6f33-4753-97e2-b24d88727b54" />
+
     
 
 Sécurisation et cloisonnement de la DMZ (Isolation DMZ -> LAN)
@@ -164,7 +176,8 @@ Le principe fondamental d'une DMZ est qu'en cas d'intrusion sur le serveur Web, 
     ◦ **Destination** : `LAN net`
     ◦ **Description** : `Interdiction DMZ vers LAN`
 
-![image.png](image%2013.png)
+<img width="1482" height="422" alt="image 13" src="https://github.com/user-attachments/assets/d59d7702-e381-4830-aba0-8e46e969cf68" />
+
 
    
 • En dessous, autorisez la DMZ à contacter l'extérieur (pour les mises à jour logicielles de la machine):
@@ -175,7 +188,8 @@ Le principe fondamental d'une DMZ est qu'en cas d'intrusion sur le serveur Web, 
     ◦ **Destination** : `Any`
 • Cliquez sur **Save** puis **Apply Changes**.
 
-![image.png](image%2014.png)
+<img width="1421" height="376" alt="image 14" src="https://github.com/user-attachments/assets/d3121205-7aea-4cb8-b357-07d5b7acbe2f" />
+
 
 Test: 
 
@@ -187,5 +201,6 @@ Depuis votre machine hôte physique
 ```jsx
 http://192.168.20.176
 ```
+<img width="1817" height="422" alt="image 15" src="https://github.com/user-attachments/assets/3f442930-506d-479d-9fb0-97ca86477b85" />
 
-![image.png](image%2015.png)
+
