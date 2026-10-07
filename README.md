@@ -38,7 +38,8 @@ Amorçage sur l'image d'installation, sélection du système de fichiers ZFS en 
 
 Déploiement de la version communautaire stable pfSense CE 2.9.0.
 
-![image.png](image.png)
+<img width="1233" height="675" alt="image" src="https://github.com/user-attachments/assets/06dcc307-f235-493f-91bf-a6d7cb04f2f3" />
+
 
 **Assignation initiale et configuration IP en console** :
 
