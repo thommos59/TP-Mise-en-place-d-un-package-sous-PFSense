@@ -333,3 +333,5 @@ L'invite de saisie des identifiants de la session Windows distante s'affiche à 
 Un test sur `192.168.20.176:3389` (port par défaut sans redirection) doit quant à lui échouer, prouvant l'efficacité de la dissimulation de service.
 
 ![image.png](image%2027.png)
+
+Les attentes du DSI sont bien respectées.
